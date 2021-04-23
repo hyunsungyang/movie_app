@@ -1,0 +1,111 @@
+to start: npm start
+
+### Fundamental Logic
+    - react creats javascript and pushes it to html
+    - index.js takes the contents from app.js,
+        and pushes it into <div id="root"></div>.
+        - Thus, all the contents from app.js will not show up in the source code of the html.
+    - Every time you create a new component, you must copy "import React from "react";"
+    - You also need to export: "export default Componentname;"
+    - ReactDOM can only render one component at a time, 
+        so instead of putting two or more JSX in the same render code, 
+        you can put in the component inside another component.  
+    - You can send information to components.
+    - Inside a component, you can add props (properties) - just like HTML.
+        - Ex. <Food fav="potato" /> (Inside Food component, there is a prop of fav)
+            - <Food /> here has to be defined as a function, and since there is a prop, the function must have the "prop" parameter.
+                - Ex. function Food(props)
+                - This parameter can be bypassed by using function Food({ fav }), and this takes fav straight from the props object.
+                    - Same thing as Food(props.fav)
+
+### Dynamic Component Generation
+    - array.map(callbackfn, argument) takes each element of the array and applies the function.
+    - when paired with the "return" function inside the callbackfn, it returns the new values back into an array.
+
+### propTypes
+    - install by typing in node: npm i prop-types
+    - this allows us to verify if the props we're getting are the props we want.
+    - if properly installed, it should appear under "dependencies" of your package.json file.
+    - import propTypes in app.js (import propTypes from "prop-types";)
+    - Food.propTypes = {
+        name: propTypes.string.isRequired,
+        picture: propTypes.string.isRequired,
+        rating: propTypes.number
+        }
+    - can check for array, boolean, object, etc. (https://reactjs.org/docs/typechecking-with-proptypes.html)
+
+### class component
+    - syntax: class App extends React.Component{}
+        - App component is now part of react component.
+    - doesn't have "return", but it has "render" method.
+
+### mounting
+    - component being born. (beginning of the life cycle).
+    - constructor() 
+    - render()
+    - componentDidMount()
+        - component has rendered for the first time.
+
+### updating
+    - caused by changes to props or state (you are updating it)
+    - componentDidUpdate()
+        - when a component updates, execute the defined function.
+
+### unmounting
+    - this method is called when a component is being removed from the DOM (refreshd, different page, etc)
+    - componentWillUnmount()
+
+### state
+    - state is an object where you can put the data of your component.
+        - this data is dynamic (can change).
+        - Ex. state = {
+            count: 0 
+            }
+        - to recall this in a render you may want to utilize:
+            render() {
+                return <div>The number is: {this.state.count}</div>;
+            }
+    - Even though state is an object, you cannot mutate it directly, because once you mutate it, 
+        it does not recall the render method again.
+        - you must use "setState()"
+            - Ex. this.setState({ count: this.state.count + 1 });
+                - this is not recommended because of performance issues.
+                - use: this.setState(current => ({ count: current.count + 1 }));
+            - remember, setState is a function, and requires another object to be defined.
+            - every time use setState, react re-renders with the new state.
+
+### Git and VSC working together symbols
+    A - Added (This is a new file that has been added to the repository)
+
+    M - Modified (An existing file has been changed)
+
+    D - Deleted (a file has been deleted)
+
+    U - Untracked (The file is new or has been changed but has not been added to the repository yet)
+
+    C - Conflict (There is a conflict in the file)
+
+    R - Renamed (The file has been renamed)
+
+    S - Submodule (In repository exists another subrepository)
+
+### Vocabulary
+    - Virtual DOM (Document Object Model)
+    - Component (Ex. <App />)
+        - it can basically be a function that returns html.
+        - there are class components as well (see above).
+        - React works based on components.
+    - combination of JS and html is called JSX, and it was introduced by REACT.
+
+### etc. notes
+    - <button onClick={this.add}>Add</button>
+        - when you click this button, add 1 to "this" number.
+        - you don't want to do {this.add()} because with the parenthesis, you call the function immediately.
+    - add = () => {}
+        - a way to write functions on ES6. Samething as function add() ...
+    - setTimeout(fn, time)
+        - set something to a value after a certain amount of time.
+        - Ex. setTimeout(() => {
+            this.setState({ isLoading : false});
+            }, 6000);
+
